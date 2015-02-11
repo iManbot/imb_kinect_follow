@@ -1,0 +1,16 @@
+<!-- Starts up Kinect nodes, pose tracking and RViz. -->
+
+<launch>
+  <include file="$(find openni_launch)/launch/openni.launch"/>
+
+  <node pkg="openni_tracker" type="openni_tracker" name="openni_tracker"/>
+
+  <node pkg="imb_kinect" type="imb_kinect" name="imb_kinect" output="screen">
+    <param name="rate"           value="50"/>
+    <param name="pub_name_poses" value="imb_pose_data"/>
+  </node>  
+
+  <node pkg="imb_kinect" type="imb_arm_ctrl" name="imb_arm_ctrl"/>
+  
+  <node pkg="rviz" type="rviz" name="rviz" args="-f camera_depth_optical_frame"/>
+</launch>
